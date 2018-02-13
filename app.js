@@ -3,17 +3,23 @@
  * ******************** */
 const express = require('express')
 const mongoose = require('mongoose')
-const auth = require('./routes/auth');
 const passport = require('passport')
-const keys = require('./config/keys')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
+const exphbs = require('express-handlebars')
+const keys = require('./config/keys')
+const auth = require('./routes/auth');
+const index = require('./routes/index');
 
 /* ********************
  * Middleware
  * ******************** */
 // Initiate App
 const app = express();
+
+// View Engine
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
 
 // Run Mongoose
 mongoose.connect(keys.mongoURI)
@@ -46,10 +52,7 @@ app.use((req, res, next) => {
 /* ********************
  * Routes
  * ******************** */
-app.get('/', (req, res) => {
-  res.send('Running')
-});
-
+app.use('/', index)
 app.use('/auth', auth)
 
 /* ********************
