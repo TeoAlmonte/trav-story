@@ -13,6 +13,22 @@
           <li> <a href="/auth/google">Login</a> </li>
         {{/if}}
       </ul>
+
+      <ul class="side-nav" id="main-menu">
+          <li><a href="/stories"><i class="fa fa-book">stories</i></a></li>
+          {{#if user}}
+          <li><a href="/dashboard"><i class="fa fa-cog">dash</i></a></li>
+          <li><a href="/stories/my"><i class="fa fa-user">user</i></a></li>
+          <li> <a href="/auth/logout">logout</a> </li>
+          {{else}}
+          <li class="divider"></li>
+          <li>
+            <a href="/auth/google" class="btn red darken-1"> <i class="fa fa-google left"></i> google log</a>
+          </li>
+          {{/if}}
+
+
+      </ul>
     </div>
   </div>
 </nav>
