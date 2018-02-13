@@ -4,11 +4,15 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const auth = require('./routes/auth');
+const passport = require('passport')
 
 /* ********************
  * Middleware
  * ******************** */
 // Run Mongoose
+
+// Passport
+require('./config/passport')(passport)
 
 // Initiate App
 const app = express();
@@ -20,6 +24,7 @@ app.get('/', (req, res) => {
   res.send('Running')
 });
 
+app.use('/auth', auth)
 
 /* ********************
  * Run Server
