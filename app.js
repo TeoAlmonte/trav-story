@@ -3,12 +3,13 @@
  * ******************** */
 const express = require('express')
 const mongoose = require('mongoose')
+const auth = require('./routes/auth');
 
 /* ********************
  * Middleware
  * ******************** */
 // Run Mongoose
-mongoose.connect('mongodb://admin:pass@ds233218.mlab.com:33218/storybook');
+
 // Initiate App
 const app = express();
 
@@ -17,7 +18,8 @@ const app = express();
  * ******************** */
 app.get('/', (req, res) => {
   res.send('Running')
-})
+});
+
 
 /* ********************
  * Run Server
