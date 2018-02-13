@@ -10,6 +10,7 @@ const exphbs = require('express-handlebars')
 const keys = require('./config/keys')
 const auth = require('./routes/auth');
 const index = require('./routes/index');
+const stories = require('./routes/stories');
 
 /* ********************
  * Middleware
@@ -54,6 +55,7 @@ app.use((req, res, next) => {
  * ******************** */
 app.use('/', index)
 app.use('/auth', auth)
+app.use('/stories', stories)
 
 /* ********************
  * Run Server
