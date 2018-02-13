@@ -1,8 +1,9 @@
-const GoogleStrategy = require('passport-google-oauth20').Strategy
-const mongoose = require('mongoose')
-const keys = require('./keys')
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const mongoose = require('mongoose');
+const keys = require('./keys');
 
-const User = mongoose.model('users')
+// Load user model
+const User = mongoose.model('users');
 
 module.exports = function(passport) {
   passport.use(
@@ -14,7 +15,7 @@ module.exports = function(passport) {
     }, (accessToken, refreshToken, profile, done) => {
       // console.log(accessToken)
       // console.log(profile)
-      const image = profile.photos[0].value.substring(0, profile.photos[0].value.indexOf('?'))
+      const image = profile.photos[0].value.substring(0, profile.photos[0].value.indexOf('?'));
       // console.log(image)
       // const email = profile.emails[0].value.split('@').pop();
       // console.log(email)
@@ -23,26 +24,28 @@ module.exports = function(passport) {
         firstName: profile.name.givenName,
         lastName: profile.name.familyName,
         email: profile.emails[0].value,
-        image:image
+        image: image
       }
       // exsisting user
       User.findOne({
         googleID: profile.id
       }).then(user => {
         if(user){
-          done(null)
+          done(null, user);
         } else {
           new User(newUser)
           .save()
-          .then(user => done(null, user))
+          .then(user => done(null, user));
         }
       })
     })
-  )
+  );
+
   passport.serializeUser((user, done) => {
-    done(null, user.id)
-  })
+    done(null, user.id);
+  });
+
   passport.deserializeUser((id, done) => {
-    User.findById(id).then(user => done(null, user))
-  })
+    User.findById(id).then(user => done(null, user));
+  });
 }
