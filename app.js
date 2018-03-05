@@ -1,13 +1,14 @@
 /* ********************
  * Modules
  * ******************** */
-const express = require('express')
-const mongoose = require('mongoose')
-const passport = require('passport')
-const cookieParser = require('cookie-parser')
-const session = require('express-session')
-const exphbs = require('express-handlebars')
-const keys = require('./config/keys')
+const express = require('express');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const exphbs = require('express-handlebars');
+const keys = require('./config/keys');
 const auth = require('./routes/auth');
 const index = require('./routes/index');
 const stories = require('./routes/stories');
@@ -17,6 +18,9 @@ const stories = require('./routes/stories');
  * ******************** */
 // Initiate App
 const app = express();
+
+// Public Folder
+app.use(express.static(path.join(__dirname, 'public')))
 
 // View Engine
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));

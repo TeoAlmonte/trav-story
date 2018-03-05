@@ -26,7 +26,7 @@ module.exports = function(passport) {
         email: profile.emails[0].value,
         image: image
       }
-      // exsisting user
+      // existing user
       User.findOne({
         googleID: profile.id
       }).then(user => {
