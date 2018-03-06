@@ -4,11 +4,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const keys = require('./config/keys');
+const path = require('path');
+
 const auth = require('./routes/auth');
 const index = require('./routes/index');
 const stories = require('./routes/stories');
@@ -43,6 +44,9 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }))
+
+// Static Path
+app.use(express.static(path.join(__dirname, 'public')))
 
 // Passport
 require('./config/passport')(passport)
