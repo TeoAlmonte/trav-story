@@ -2,13 +2,18 @@
  * Modules
  * ******************** */
 const express = require('express');
+const path = require('path');
+const exphbs = require('express-handlebars');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const exphbs = require('express-handlebars');
+const passport = require('passport');
 const keys = require('./config/keys');
-const path = require('path');
+
+// Load Models
+require('./models/User')
+require('./models/Story')
 
 const auth = require('./routes/auth');
 const index = require('./routes/index');
@@ -23,17 +28,32 @@ const app = express();
 // Public Folder
 app.use(express.static(path.join(__dirname, 'public')))
 
+// Body Parser
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+// Handlebars Helper
+const {
+  truncate,
+  stripTags,
+  formatDate
+} = require('./helpers/hbs');
+
 // View Engine
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({
+  helpers: {
+    truncate: truncate,
+    stripTags: stripTags,
+    formatDate, formatDate
+  },
+  defaultLayout: 'main'
+}));
 app.set('view engine', 'handlebars');
 
 // Run Mongoose
 mongoose.connect(keys.mongoURI)
   .then(() => console.log('running on mongo'))
   .catch(err => console.log(err))
-
-// User Model
-require('./models/User')
 
 // Cookies
 app.use(cookieParser())

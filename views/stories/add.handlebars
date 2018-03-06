@@ -1,36 +1,43 @@
 <h1>add</h1>
 <div class="row">
   <form action="/stories" method="POST" class="col s12">
+
     <div class="row">
       <div class="input-field">
-        <input type="text" name="title">
+        <input type="text" name="title" placeholder="title">
       </div>
     </div>
+
     <div class="row">
       <div class="input-field">
         <select name="status" id="status">
           <option value="public" selected>public</option>
           <option value="private">private</option>
           <option value="unpublished">unpublished</option>
-          <option value=""></option>
         </select>
-      </div>
-    </div>
-    <div class="row">
-      <p><input type="checkbox" name="comments" class="filled-in" checked="checked"></p>
-    </div>
-    <div class="row">
-      <div class="input-field">
-        <h4>your story</h4>
-        <textarea name="body" id="body" cols="30" rows="10"></textarea>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field">
-        <input type="submit" name="submit" value="submit" class="btn">
+        <label for="status">Status</label>
       </div>
     </div>
 
-    
+    <div class="row">
+      <p>
+        <input type="checkbox" name="allowComments" class="filled-in" id="checkbox" checked="checked">
+        <label for="checkbox" >Allow comments</label>
+      </p>
+    </div>
+
+    <div class="row">
+      <div class="input-field">
+        <h4>your story</h4>
+        <textarea name="bodytext" id="body" rows="50"></textarea>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field">
+        <input type="submit" name="submit" value="save" class="btn">
+      </div>
+    </div>
+
   </form>
 </div>
