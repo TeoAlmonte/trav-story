@@ -56,12 +56,49 @@ router.get('/show/:id', (req, res) => {
   });
 });
 
-router.get('/edit', (req, res) => {
-  res.render('stories/edit')
+router.get('/edit/:id', ensureAuthenticated, (req, res) => {
+  Story.findOne({
+    _id: req.params.id
+  })
+  .then(story => {
+    res.render('stories/edit', {
+      story: story
+    });
+  });
 });
 
 router.get('/show', (req, res) => {
   res.render('stories/show')
 });
+
+router.put('/:id', (req, res) => {
+  Story.findOne({
+    _id: req.params.id
+  })
+  .then(story => {
+    let allowComments;
+
+    if(req.body.allowComments) {
+      allowComments = true;
+    } else {
+      allowComments = false;
+    }
+    story.title = req.body.title,
+    story.body = req.body.bodytext,
+    story.status = req.body.status,
+    story.allowComments = allowComments
+    story.save()
+    .then(story => {
+      res.redirect('/dashboard');
+    });
+  });
+})
+
+router.delete('/:id', (req, res) => {
+  Story.remove({_id: req.params.id})
+  .then(() => {
+    res.redirect('/dashboard');
+  });
+})
 
 module.exports = router;

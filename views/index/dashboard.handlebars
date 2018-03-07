@@ -1,3 +1,22 @@
 <h1>welcome {{user.firstName}}</h1>
 <p> {{user.email }}</p>
 <h4>your stories</h4>
+
+{{#if stories}}
+  {{#each stories}}
+    <div>
+      <h5>{{title}}</h5>
+      <p>{{stripTags body}}</p>
+      <small><a href="/stories/sho/{{id}}">read more</a></small>
+      <small>{{formatDate date "MMM YYYY"}} and {{status}}</small>
+      <small><a href="/stories/edit/{{id}}">edit</a></small>
+    </div>
+    <form action="/stories/{{id}}?_method=DELETE" method="post" id="delete-form">
+      <input type="hidden" name="_method" value="DELETE">
+      <button type="submit" class="btn red">delete</button>
+    </form>
+    <hr>
+  {{/each}}
+{{else}}
+  no stories
+{{/if}}

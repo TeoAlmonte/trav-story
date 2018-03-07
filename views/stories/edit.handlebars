@@ -1,1 +1,48 @@
 <h1>edit</h1>
+<div class="row">
+  <form action="/stories/{{story.id}}?_method=PUT" method="POST" class="col s12">
+    <input type="hidden" name="_method" value="PUT">
+    <div class="row">
+      <div class="input-field">
+        <input type="text" name="title" placeholder="title" value="{{story.title}}">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field">
+        <select name="status" id="status">
+          {{#select story.status}}
+          <option value="public" selected>public</option>
+          <option value="private">private</option>
+          <option value="unpublished">unpublished</option>
+          {{/select}}
+        </select>
+        <label for="status">Status</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <p>
+        <input type="checkbox" name="allowComments" class="filled-in" id="checkbox" {{#if story.allowComments}} checked="checked" {{/if}}>
+        <label for="checkbox" >Allow comments</label>
+      </p>
+    </div>
+
+    <div class="row">
+      <div class="input-field">
+        <h4>your story</h4>
+        <textarea name="bodytext" id="body" rows="50">{{story.body}}</textarea>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field">
+        <input type="submit" name="submit" value="save" class="btn">
+      </div>
+    </div>
+  </form>
+     <form action="/stories/{{story.id}}?_method=DELETE" method="post" id="delete-form">
+      <input type="hidden" name="_method" value="DELETE">
+      <button type="submit" class="btn red">delete</button>
+    </form>
+</div>
