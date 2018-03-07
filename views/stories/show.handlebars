@@ -13,9 +13,7 @@
         <p>{{formatDate story.date 'MMMM Do YYYY'}}</p>
       </div>
       <div class="card-image">
-        <a href="/stories/edit/{{story.id}}" class="btn-floating halfway-fab red">
-        <i class="fa fa-pencil"></i>
-        </a>
+        <small>{{{editIcon story.user.id user.id story.id false}}}</small>
       </div>
       {{#if story.allowComments}}
       <div class="card">

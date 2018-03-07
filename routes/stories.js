@@ -8,6 +8,7 @@ const {ensureAuthenticated, ensureGuest} = require('../helpers/auth');
 // View all stories
 router.get('/', (req, res) => {
   Story.find({status:'public'})
+    .sort({date:-1})
     .populate('user')
     .then(stories => {
       res.render('stories/index', {
@@ -24,7 +25,6 @@ router.get('/add', ensureAuthenticated, (req, res) => {
 // Add a story
 router.post('/', ensureAuthenticated, (req, res) => {
   let allowComments;
-
   if(req.body.allowComments) {
     allowComments = true;
   } else {
@@ -62,9 +62,13 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
     _id: req.params.id
   })
   .then(story => {
-    res.render('stories/edit', {
-      story: story
-    });
+    if(story.user != req.user.id) {
+      res.redirect('/stories')
+    } else {
+      res.render('stories/edit', {
+        story: story
+      });
+    }
   });
 });
 

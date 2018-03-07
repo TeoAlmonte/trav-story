@@ -13,11 +13,11 @@
           <img src="{{user.image}}" alt="" width="30px" height:"30px">
           <p>{{formatDate date 'MMMM Do YYYY'}}</p>
         </div>
-        <p><a href="/stories/show/{{id}}">read more</a></p>
+        <p><a href="/stories/show/{{id}}">read more</a></p> 
         <div class="card-image">
-          <a href="/stories/edit/{{id}}" class="btn-floating halfway-fab red">
-          <i class="fa fa-pencil"></i>
-          </a>
+         
+            {{{editIcon user.id ../user.id id}}}
+          
         </div>
       </div>
     </div>
